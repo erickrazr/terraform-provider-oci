@@ -158,6 +158,7 @@ resource "oci_dataflow_private_endpoint" "test_private_endpoint" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "ea1f6039-a52d-484e-beb5-1900532c7685"
   }
 
   max_host_count = "256"
@@ -182,6 +183,7 @@ resource "oci_dataflow_application" "test_application" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "fe97c40d-c442-4da0-bcba-d01e4fe2b271"
   }
 
   language        = "PYTHON"
@@ -196,7 +198,7 @@ resource "oci_dataflow_application" "test_application" {
   private_endpoint_id  = oci_dataflow_private_endpoint.test_private_endpoint.id
   spark_version        = "2.4"
   warehouse_bucket_uri = var.dataflow_warehouse_bucket_uri
-  metastore_id = var.metastore_id
+  metastore_id         = var.metastore_id
 }
 
 resource "oci_dataflow_invoke_run" "test_invoke_run" {
@@ -217,9 +219,9 @@ resource "oci_dataflow_application" "test_application_submit" {
   num_executors  = "1"
   spark_version  = "2.4"
   #Optional
-  archive_uri    = var.application_archive_uri
+  archive_uri         = var.application_archive_uri
   private_endpoint_id = oci_dataflow_private_endpoint.test_private_endpoint.id
-  metastore_id = var.metastore_id
+  metastore_id        = var.metastore_id
 }
 
 resource "oci_dataflow_invoke_run" "test_invokey_run_submit" {
@@ -231,7 +233,7 @@ resource "oci_dataflow_invoke_run" "test_invokey_run_submit" {
   archive_uri    = var.application_archive_uri
   display_name   = "test_wordcount_run_submit"
   spark_version  = "2.4"
-  metastore_id = var.metastore_id
+  metastore_id   = var.metastore_id
 }
 
 data "oci_dataflow_private_endpoints" "test_private_endpoints" {

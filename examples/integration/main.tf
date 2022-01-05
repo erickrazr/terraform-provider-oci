@@ -54,6 +54,7 @@ resource "oci_integration_integration_instance" "test_integration_instance" {
   }
   freeform_tags = {
     "bar-key" = "value"
+    yor_trace = "360925ae-b334-43b5-b3c5-a4b3c79bd3c7"
   }
 
   idcs_at                = var.integration_instance_idcs_access_token
@@ -64,10 +65,10 @@ resource "oci_integration_integration_instance" "test_integration_instance" {
     allowlisted_http_ips = ["172.16.0.239/32"]
     allowlisted_http_vcns {
       allowlisted_ips = ["172.16.0.239/32"]
-      id = "${var.allow_listed_http_vcn}"
+      id              = "${var.allow_listed_http_vcn}"
     }
     is_integration_vcn_allowlisted = "false"
-    network_endpoint_type = "PUBLIC"
+    network_endpoint_type          = "PUBLIC"
   }
 
 }
@@ -84,4 +85,8 @@ data "oci_integration_integration_instances" "test_integration_instances" {
 data "oci_integration_integration_instance" "test_integration_instance" {
   #Required
   integration_instance_id = oci_integration_integration_instance.test_integration_instance.id
+  freeform_tags = {
+    bar-key   = "value"
+    yor_trace = "360925ae-b334-43b5-b3c5-a4b3c79bd3c7"
+  }
 }

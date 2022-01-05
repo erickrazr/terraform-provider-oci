@@ -19,7 +19,9 @@ resource "oci_logging_log_saved_search" "test_log_saved_search" {
   }
   description = "description"
 
-  freeform_tags = var.log_saved_search_freeform_tags
+  freeform_tags = merge(var.log_saved_search_freeform_tags, {
+    yor_trace = "5c3f35d0-8706-4e21-8278-f84816c24eb5"
+  })
 }
 
 data "oci_logging_log_saved_searches" "test_log_saved_searches" {
@@ -27,6 +29,6 @@ data "oci_logging_log_saved_searches" "test_log_saved_searches" {
   compartment_id = var.compartment_ocid
 
   #Optional
-  name           = "exampleLogSavedSearch"
+  name                = "exampleLogSavedSearch"
   log_saved_search_id = oci_logging_log_saved_search.test_log_saved_search.id
 }

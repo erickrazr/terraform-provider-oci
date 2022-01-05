@@ -63,7 +63,9 @@ resource "oci_apm_synthetics_script" "test_script" {
   #Optional
   content_file_name = var.script_content_file_name
   defined_tags      = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.script_defined_tags_value)
-  freeform_tags     = var.script_freeform_tags
+  freeform_tags = merge(var.script_freeform_tags, {
+    yor_trace = "d9025761-6ac6-4194-8cbe-7d90873345e7"
+  })
   parameters {
     #Required
     param_name = var.script_parameters_param_name

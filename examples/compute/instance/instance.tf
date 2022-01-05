@@ -77,10 +77,10 @@ variable "instance_image_ocid" {
 variable "flex_instance_image_ocid" {
   type = map(string)
   default = {
-    us-phoenix-1 = "ocid1.image.oc1.phx.aaaaaaaa6hooptnlbfwr5lwemqjbu3uqidntrlhnt45yihfj222zahe7p3wq"
-    us-ashburn-1 = "ocid1.image.oc1.iad.aaaaaaaa6tp7lhyrcokdtf7vrbmxyp2pctgg4uxvt4jz4vc47qoc2ec4anha"
+    us-phoenix-1   = "ocid1.image.oc1.phx.aaaaaaaa6hooptnlbfwr5lwemqjbu3uqidntrlhnt45yihfj222zahe7p3wq"
+    us-ashburn-1   = "ocid1.image.oc1.iad.aaaaaaaa6tp7lhyrcokdtf7vrbmxyp2pctgg4uxvt4jz4vc47qoc2ec4anha"
     eu-frankfurt-1 = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaadvi77prh3vjijhwe5xbd6kjg3n5ndxjcpod6om6qaiqeu3csof7a"
-    uk-london-1 = "ocid1.image.oc1.uk-london-1.aaaaaaaaw5gvriwzjhzt2tnylrfnpanz5ndztyrv3zpwhlzxdbkqsjfkwxaq"
+    uk-london-1    = "ocid1.image.oc1.uk-london-1.aaaaaaaaw5gvriwzjhzt2tnylrfnpanz5ndztyrv3zpwhlzxdbkqsjfkwxaq"
   }
 }
 
@@ -104,7 +104,7 @@ resource "oci_core_instance" "test_instance" {
   shape               = var.instance_shape
 
   shape_config {
-    ocpus = var.instance_ocpus
+    ocpus         = var.instance_ocpus
     memory_in_gbs = var.instance_shape_config_memory_in_gbs
   }
 
@@ -118,7 +118,7 @@ resource "oci_core_instance" "test_instance" {
 
   source_details {
     source_type = "image"
-    source_id = var.flex_instance_image_ocid[var.region]
+    source_id   = var.flex_instance_image_ocid[var.region]
     # Apply this to set the size of the boot volume that is created for this instance.
     # Otherwise, the default boot volume size of the image is used.
     # This should only be specified when source_type is set to "image".
@@ -140,11 +140,12 @@ resource "oci_core_instance" "test_instance" {
 
   freeform_tags = {
     "freeformkey${count.index}" = "freeformvalue${count.index}"
+    yor_trace                   = "462df1dd-f298-43e0-a9a4-00d9551acc8e"
   }
 
   preemptible_instance_config {
     preemption_action {
-      type = "TERMINATE"
+      type                 = "TERMINATE"
       preserve_boot_volume = false
     }
   }

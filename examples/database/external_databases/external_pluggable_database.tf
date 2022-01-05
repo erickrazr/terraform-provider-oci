@@ -3,8 +3,8 @@
 
 // Create an External Pluggable Database resource
 resource "oci_database_external_pluggable_database" "test_external_pluggable_database" {
-  compartment_id = var.compartment_ocid
-  display_name = var.external_pluggable_database_display_name
+  compartment_id                 = var.compartment_ocid
+  display_name                   = var.external_pluggable_database_display_name
   external_container_database_id = oci_database_external_container_database.test_external_container_database.id
 
   #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
@@ -12,46 +12,48 @@ resource "oci_database_external_pluggable_database" "test_external_pluggable_dat
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "8c11349d-bf4c-4ced-93f2-ce2a23558e39"
   }
 }
 
 // Create a Connector using credential name for the External Pluggable Database resource
 resource "oci_database_external_database_connector" "test_external_pluggable_database_connector" {
-    connection_credentials {
-        credential_type = var.credential_type
-        credential_name = var.credential_name
-    }
-    connection_string {
-        hostname = var.hostname
-        port = var.port
-        protocol = var.protocol
-        service = var.service
-    }
-    connector_agent_id = var.connector_agent_id
-    display_name = var.external_database_connector_display_name
-    external_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
-    connector_type = var.connector_type
-    #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
-    #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
+  connection_credentials {
+    credential_type = var.credential_type
+    credential_name = var.credential_name
+  }
+  connection_string {
+    hostname = var.hostname
+    port     = var.port
+    protocol = var.protocol
+    service  = var.service
+  }
+  connector_agent_id   = var.connector_agent_id
+  display_name         = var.external_database_connector_display_name
+  external_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
+  connector_type       = var.connector_type
+  #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
+  #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
 
-    freeform_tags = {
-      "Department" = "Finance"
-    }
+  freeform_tags = {
+    "Department" = "Finance"
+    yor_trace    = "be68e676-e142-4864-88c2-34c88bd0f27e"
+  }
 }
 
 // Enable Database Management for the External Pluggable Database
 resource "oci_database_external_pluggable_database_management" "test_enable_external_pluggable_database_management" {
-    depends_on = [oci_database_external_container_database_management.test_enable_external_container_database_management]
-    external_pluggable_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
-    external_database_connector_id = oci_database_external_database_connector.test_external_pluggable_database_connector.id
-    enable_management = true
+  depends_on                     = [oci_database_external_container_database_management.test_enable_external_container_database_management]
+  external_pluggable_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
+  external_database_connector_id = oci_database_external_database_connector.test_external_pluggable_database_connector.id
+  enable_management              = true
 }
 
 // Enable Operations Insights for the External Pluggable Databases
 resource "oci_database_external_pluggable_database_operations_insights_management" "test_enable_external_pluggable_database_operations_insights_management" {
   external_pluggable_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
   external_database_connector_id = oci_database_external_database_connector.test_external_pluggable_database_connector.id
-  enable_operations_insights = true
+  enable_operations_insights     = true
 }
 
 //Commenting out this code block to unblock the failure in backward compatibility test
@@ -64,15 +66,19 @@ resource "oci_database_external_pluggable_database_operations_insights_managemen
 }*/
 
 data "oci_database_external_pluggable_database" "test_external_pluggable_database" {
-	#Required
-	external_pluggable_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
+  #Required
+  external_pluggable_database_id = oci_database_external_pluggable_database.test_external_pluggable_database.id
+  freeform_tags = {
+    Department = "Finance"
+    yor_trace  = "8c11349d-bf4c-4ced-93f2-ce2a23558e39"
+  }
 }
 
 data "oci_database_external_pluggable_databases" "test_external_pluggable_databases" {
-	#Required
-	compartment_id = var.compartment_ocid
+  #Required
+  compartment_id = var.compartment_ocid
 
-	#Optional
-	display_name = var.external_pluggable_database_display_name
-	state = var.external_database_state
+  #Optional
+  display_name = var.external_pluggable_database_display_name
+  state        = var.external_database_state
 }

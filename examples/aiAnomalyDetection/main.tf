@@ -149,11 +149,11 @@ variable "model_state" {
 
 
 provider "oci" {
-  tenancy_ocid = var.tenancy_ocid
-  user_ocid = var.user_ocid
-  fingerprint = var.fingerprint
+  tenancy_ocid     = var.tenancy_ocid
+  user_ocid        = var.user_ocid
+  fingerprint      = var.fingerprint
   private_key_path = var.private_key_path
-  region = var.region
+  region           = var.region
 }
 
 //DEPENDENCIES
@@ -163,16 +163,16 @@ variable defined_tag_namespace_name {
 resource "oci_identity_tag_namespace" "tag-namespace1" {
   #Required
   compartment_id = var.tenancy_ocid
-  description = "example tag namespace"
-  name = var.defined_tag_namespace_name != "" ? var.defined_tag_namespace_name : "example-tag-namespace-all"
+  description    = "example tag namespace"
+  name           = var.defined_tag_namespace_name != "" ? var.defined_tag_namespace_name : "example-tag-namespace-all"
 
   is_retired = false
 }
 
 resource "oci_identity_tag" "tag1" {
   #Required
-  description = "example tag"
-  name = "example-tag"
+  description      = "example tag"
+  name             = "example-tag"
   tag_namespace_id = oci_identity_tag_namespace.tag-namespace1.id
 
   is_retired = false
@@ -180,39 +180,41 @@ resource "oci_identity_tag" "tag1" {
 
 resource "oci_core_subnet" "test_subnet" {
   availability_domain = lower(data.oci_identity_availability_domains.test_availability_domains.availability_domains[0].name)
-  cidr_block = "10.0.0.0/24"
-  compartment_id = var.compartment_id
+  cidr_block          = "10.0.0.0/24"
+  compartment_id      = var.compartment_id
   //defined_tags = "${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}"
   dhcp_options_id = oci_core_vcn.test_vcn.default_dhcp_options_id
-  display_name = "MySubnet"
-  dns_label = "dnslabel"
+  display_name    = "MySubnet"
+  dns_label       = "dnslabel"
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "55f234a8-54c9-4a7c-a2ca-0cb38c7ca0b2"
   }
   lifecycle {
     ignore_changes = [
-      defined_tags]
+    defined_tags]
   }
-  prohibit_internet_ingress = "false"
+  prohibit_internet_ingress  = "false"
   prohibit_public_ip_on_vnic = "false"
-  route_table_id = oci_core_vcn.test_vcn.default_route_table_id
+  route_table_id             = oci_core_vcn.test_vcn.default_route_table_id
   security_list_ids = [
-    oci_core_vcn.test_vcn.default_security_list_id]
+  oci_core_vcn.test_vcn.default_security_list_id]
   vcn_id = oci_core_vcn.test_vcn.id
 }
 
 resource "oci_core_vcn" "test_vcn" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block     = "10.0.0.0/16"
   compartment_id = var.compartment_id
   //defined_tags = "${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "value")}"
   display_name = "displayName"
-  dns_label = "dnslabel"
+  dns_label    = "dnslabel"
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "1ff502a5-4dbf-492b-805b-94657c6b8cb8"
   }
   lifecycle {
     ignore_changes = [
-      defined_tags]
+    defined_tags]
   }
 }
 
@@ -227,9 +229,11 @@ resource "oci_ai_anomaly_detection_project" "test_project" {
 
   #Optional
   //defined_tags  = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.project_defined_tags_value)
-  description = var.project_description
+  description  = var.project_description
   display_name = var.project_display_name
-  freeform_tags = var.project_freeform_tags
+  freeform_tags = merge(var.project_freeform_tags, {
+    yor_trace = "22e725d2-21e4-4ef1-b496-36bdf43d9d2c"
+  })
 }
 
 data "oci_ai_anomaly_detection_projects" "test_projects" {
@@ -238,7 +242,7 @@ data "oci_ai_anomaly_detection_projects" "test_projects" {
 
   #Optional
   display_name = var.project_display_name
-  state = var.project_state
+  state        = var.project_state
 }
 
 //PRIVATE ENDPOINT
@@ -246,13 +250,15 @@ resource "oci_ai_anomaly_detection_ai_private_endpoint" "test_ai_private_endpoin
   #Required
   compartment_id = var.compartment_id
   dns_zones = [
-    oci_core_subnet.test_subnet.subnet_domain_name]
+  oci_core_subnet.test_subnet.subnet_domain_name]
   subnet_id = oci_core_subnet.test_subnet.id
 
   #Optional
   //defined_tags  = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.ai_private_endpoint_defined_tags_value)
   display_name = var.ai_private_endpoint_display_name
-  freeform_tags = var.ai_private_endpoint_freeform_tags
+  freeform_tags = merge(var.ai_private_endpoint_freeform_tags, {
+    yor_trace = "40b4aba6-f7bc-4a06-baca-afa7904969be"
+  })
 }
 
 data "oci_ai_anomaly_detection_ai_private_endpoints" "test_ai_private_endpoints" {
@@ -261,7 +267,7 @@ data "oci_ai_anomaly_detection_ai_private_endpoints" "test_ai_private_endpoints"
 
   #Optional
   display_name = var.ai_private_endpoint_display_name
-  state = var.ai_private_endpoint_state
+  state        = var.ai_private_endpoint_state
 }
 
 //DATA ASSET
@@ -271,17 +277,19 @@ resource "oci_ai_anomaly_detection_data_asset" "test_data_asset" {
   data_source_details {
     #Required
     data_source_type = var.data_asset_data_source_details_data_source_type
-    bucket = var.data_asset_data_source_details_bucket
-    namespace = var.data_asset_data_source_details_namespace
-    object = var.data_asset_data_source_details_object
+    bucket           = var.data_asset_data_source_details_bucket
+    namespace        = var.data_asset_data_source_details_namespace
+    object           = var.data_asset_data_source_details_object
   }
   project_id = oci_ai_anomaly_detection_project.test_project.id
 
   #Optional
   //defined_tags        = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.data_asset_defined_tags_value)
-  description = var.data_asset_description
+  description  = var.data_asset_description
   display_name = var.data_asset_display_name
-  freeform_tags = var.data_asset_freeform_tags
+  freeform_tags = merge(var.data_asset_freeform_tags, {
+    yor_trace = "303a9026-7af3-4444-adeb-45ba50a476cb"
+  })
 }
 
 data "oci_ai_anomaly_detection_data_assets" "test_data_assets" {
@@ -290,7 +298,7 @@ data "oci_ai_anomaly_detection_data_assets" "test_data_assets" {
 
   #Optional
   display_name = var.data_asset_display_name
-  state = var.data_asset_state
+  state        = var.data_asset_state
 }
 
 //MODEL
@@ -300,17 +308,17 @@ resource "oci_ai_anomaly_detection_model" "test_model" {
   model_training_details {
     #Required
     data_asset_ids = [
-      oci_ai_anomaly_detection_data_asset.test_data_asset.id]
+    oci_ai_anomaly_detection_data_asset.test_data_asset.id]
 
     #Optional
-    target_fap = var.model_model_training_details_target_fap
+    target_fap        = var.model_model_training_details_target_fap
     training_fraction = var.model_model_training_details_training_fraction
   }
   project_id = oci_ai_anomaly_detection_data_asset.test_data_asset.project_id
 
   #Optional
   //defined_tags  = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.model_defined_tags_value)
-  description = var.model_description
+  description  = var.model_description
   display_name = var.model_display_name
   //freeform_tags = var.model_freeform_tags
 }
@@ -321,8 +329,8 @@ data "oci_ai_anomaly_detection_models" "test_models" {
 
   #Optional
   display_name = var.model_display_name
-  project_id = oci_ai_anomaly_detection_project.test_project.id
-  state = var.model_state
+  project_id   = oci_ai_anomaly_detection_project.test_project.id
+  state        = var.model_state
 }
 
 

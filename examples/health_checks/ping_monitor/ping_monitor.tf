@@ -79,7 +79,9 @@ resource "oci_health_checks_ping_monitor" "test_ping_monitor" {
 
   #Optional
   #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
-  freeform_tags = var.ping_monitor_freeform_tags
+  freeform_tags = merge(var.ping_monitor_freeform_tags, {
+    yor_trace = "a96d4278-8d6d-4957-a89e-33a395c460b9"
+  })
 
   is_enabled          = var.ping_monitor_is_enabled
   port                = var.ping_monitor_port

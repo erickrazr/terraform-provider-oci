@@ -73,6 +73,7 @@ resource "oci_database_autonomous_database" "test_autonomous_database_source" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "0c4d3285-8b39-47b8-ac16-9e99dc43e94e"
   }
 
   is_auto_scaling_enabled                        = "false"
@@ -98,6 +99,7 @@ resource "oci_database_autonomous_database" "test_autonomous_database_refreshabl
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "b4ce03a7-7c36-4c8a-8db6-a30c21e87509"
   }
 
   is_auto_scaling_enabled                        = "false"

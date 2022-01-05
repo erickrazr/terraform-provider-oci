@@ -128,7 +128,9 @@ resource "oci_marketplace_publication" "test_publication" {
   }
 
   #Optional
-  freeform_tags    = var.publication_freeform_tags
+  freeform_tags = merge(var.publication_freeform_tags, {
+    yor_trace = "0efcdaf5-8fe9-424b-8f09-11c7c5923976"
+  })
   long_description = var.publication_long_description
 }
 

@@ -12,7 +12,9 @@ resource "oci_identity_identity_provider" "test_identity_provider" {
   protocol       = var.identity_provider_protocol
 
   #Optional
-  freeform_tags = var.identity_provider_freeform_tags
+  freeform_tags = merge(var.identity_provider_freeform_tags, {
+    yor_trace = "b6cf86e7-4fce-41de-aad5-d3bb7c802350"
+  })
 }
 
 data "oci_identity_identity_providers" "test_identity_providers" {

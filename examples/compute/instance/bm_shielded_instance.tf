@@ -18,9 +18,9 @@ resource "oci_core_instance" "test_bm_shielded_instance_with_platform_config" {
 
 
   platform_config {
-    type = var.bm_shielded_instance_platform_config_type
-    is_measured_boot_enabled = false
-    is_secure_boot_enabled = true
+    type                               = var.bm_shielded_instance_platform_config_type
+    is_measured_boot_enabled           = false
+    is_secure_boot_enabled             = true
     is_trusted_platform_module_enabled = true
   }
 
@@ -51,6 +51,7 @@ resource "oci_core_instance" "test_bm_shielded_instance_with_platform_config" {
 
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "fcf663a4-1688-4f1d-b124-51b59652238f"
   }
   timeouts {
     create = "60m"

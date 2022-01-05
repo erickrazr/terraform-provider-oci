@@ -303,6 +303,7 @@ resource "oci_database_db_system" "test_db_system" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "b63e7ef9-7a90-4d8a-ab4f-96ff0063e03c"
   }
 }
 

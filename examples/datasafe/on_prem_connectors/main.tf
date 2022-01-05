@@ -47,14 +47,16 @@ provider "oci" {
 
 resource "oci_data_safe_on_prem_connector" "test_on_prem_connector" {
   compartment_id = var.compartment_id
-  description   = var.on_prem_connector_description
-  display_name  = var.on_prem_connector_display_name
-  freeform_tags = var.on_prem_connector_freeform_tags
+  description    = var.on_prem_connector_description
+  display_name   = var.on_prem_connector_display_name
+  freeform_tags = merge(var.on_prem_connector_freeform_tags, {
+    yor_trace = "c9fe62ea-b035-4ddb-9b4e-cff8d4c0b654"
+  })
 }
 
 data "oci_data_safe_on_prem_connectors" "test_on_prem_connectors" {
-  compartment_id = var.compartment_id
-  display_name = var.on_prem_connector_display_name
-  on_prem_connector_id = oci_data_safe_on_prem_connector.test_on_prem_connector.id
+  compartment_id                    = var.compartment_id
+  display_name                      = var.on_prem_connector_display_name
+  on_prem_connector_id              = oci_data_safe_on_prem_connector.test_on_prem_connector.id
   on_prem_connector_lifecycle_state = var.on_prem_connector_on_prem_connector_lifecycle_state
 }

@@ -15,8 +15,10 @@ resource "oci_ons_notification_topic" "test_notification_topic" {
   defined_tags = {
     "${oci_identity_tag_namespace.tag_namespace1.name}.${oci_identity_tag.tag1.name}" = var.notification_topic_defined_tags_value
   }
-  description   = var.notification_topic_description
-  freeform_tags = var.notification_topic_freeform_tags
+  description = var.notification_topic_description
+  freeform_tags = merge(var.notification_topic_freeform_tags, {
+    yor_trace = "395df356-36a1-4de0-ae63-561cbb1c7b2a"
+  })
 }
 
 data "oci_ons_notification_topics" "test_notification_topics" {

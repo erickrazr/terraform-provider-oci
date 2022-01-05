@@ -202,9 +202,11 @@ resource "oci_apm_synthetics_monitor" "test_monitor" {
       text = var.monitor_configuration_verify_texts_text
     }
   }
-  defined_tags  = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.monitor_defined_tags_value)
-  freeform_tags = var.monitor_freeform_tags
-  script_id     = oci_apm_synthetics_script.test_script.id
+  defined_tags = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.monitor_defined_tags_value)
+  freeform_tags = merge(var.monitor_freeform_tags, {
+    yor_trace = "bbc3f0a6-cf5c-4511-bbcc-efd13e58b7e8"
+  })
+  script_id = oci_apm_synthetics_script.test_script.id
   script_parameters {
     #Required
     param_name  = var.monitor_script_parameters_param_name

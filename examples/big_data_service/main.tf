@@ -177,7 +177,9 @@ resource "oci_bds_bds_instance" "test_bds_instance" {
   defined_tags = {
     "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = var.bds_instance_defined_tags_value
   }
-  freeform_tags = var.bds_instance_freeform_tags
+  freeform_tags = merge(var.bds_instance_freeform_tags, {
+    yor_trace = "0fadf755-ba26-4a9b-a01b-c8cc771f2d4d"
+  })
   network_config {
     #Optional
     cidr_block              = var.bds_instance_network_config_cidr_block
@@ -197,5 +199,8 @@ data "oci_bds_bds_instances" "test_bds_instances" {
 data "oci_bds_bds_instance" "test_bds_instance" {
   #Required
   bds_instance_id = oci_bds_bds_instance.test_bds_instance.id
+  freeform_tags = {
+    yor_trace = "0fadf755-ba26-4a9b-a01b-c8cc771f2d4d"
+  }
 }
 

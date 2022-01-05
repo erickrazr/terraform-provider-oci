@@ -31,10 +31,12 @@ resource "oci_database_autonomous_database" "autonomous_database" {
   db_name                  = "adbdb1f"
 
   #Optional
-  db_version                                     = data.oci_database_autonomous_db_versions.test_autonomous_db_versions.autonomous_db_versions[0].version
-  db_workload                                    = var.autonomous_database_db_workload
-  display_name                                   = "example_autonomous_database"
-  freeform_tags                                  = var.autonomous_database_freeform_tags
+  db_version   = data.oci_database_autonomous_db_versions.test_autonomous_db_versions.autonomous_db_versions[0].version
+  db_workload  = var.autonomous_database_db_workload
+  display_name = "example_autonomous_database"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "bf2f0888-038b-41e2-806e-6b104c1d9a93"
+  })
   is_auto_scaling_enabled                        = "true"
   license_model                                  = var.autonomous_database_license_model
   is_preview_version_with_service_terms_accepted = "false"
@@ -86,14 +88,14 @@ resource "oci_database_autonomous_database_backup" "autonomous_database_backup" 
 }
 
 resource "oci_database_autonomous_database" "autonomous_database_oneway_tls_connection" {
-  admin_password              = random_string.autonomous_database_admin_password.result
-  compartment_id              = var.compartment_ocid
-  cpu_core_count              = "1"
-  data_storage_size_in_tbs    = "1"
-  db_name                     = "adbOneWay"
+  admin_password           = random_string.autonomous_database_admin_password.result
+  compartment_id           = var.compartment_ocid
+  cpu_core_count           = "1"
+  data_storage_size_in_tbs = "1"
+  db_name                  = "adbOneWay"
 
   whitelisted_ips             = ["1.1.1.1"]
-  is_mtls_connection_required    = "true"
+  is_mtls_connection_required = "true"
 }
 
 // Per service, we need to pass in a back up that is at least 2 hours old

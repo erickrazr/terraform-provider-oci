@@ -117,12 +117,13 @@ data "oci_objectstorage_namespace" "test_namespace" {}
 
 resource "oci_sch_service_connector" "test_service_connector" {
   compartment_id = var.compartment_ocid
-  defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue"}
+  defined_tags   = { "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "updatedValue" }
   description    = "description2"
   display_name   = "displayName2"
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "7e5be493-f166-4293-a421-36bb74fb867c"
   }
 
   source {
@@ -198,6 +199,10 @@ resource "oci_sch_service_connector" "test_service_connector" {
 
 data "oci_sch_service_connector" "test_service_connector" {
   service_connector_id = oci_sch_service_connector.test_service_connector.id
+  freeform_tags = {
+    Department = "Accounting"
+    yor_trace  = "7e5be493-f166-4293-a421-36bb74fb867c"
+  }
 }
 
 output "oci_sch_service_connector_id" {

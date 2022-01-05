@@ -56,8 +56,10 @@ resource "oci_database_autonomous_exadata_infrastructure" "test_autonomous_exada
   compartment_id      = var.compartment_ocid
   display_name        = "TestExadata11"
   domain              = var.autonomous_exadata_infrastructure_domain
-  freeform_tags       = var.autonomous_database_freeform_tags
-  license_model       = "LICENSE_INCLUDED"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "522aaebc-b51c-4d8f-9e9c-ec39bf0e3080"
+  })
+  license_model = "LICENSE_INCLUDED"
 
   create_async = true
   maintenance_window_details {
@@ -107,6 +109,9 @@ data "oci_database_autonomous_exadata_infrastructures" "test_autonomous_exadata_
 
 data "oci_database_autonomous_exadata_infrastructure" "test_autonomous_exadata_infrastructure" {
   autonomous_exadata_infrastructure_id = oci_database_autonomous_exadata_infrastructure.test_autonomous_exadata_infrastructure.id
+  freeform_tags = {
+    yor_trace = "522aaebc-b51c-4d8f-9e9c-ec39bf0e3080"
+  }
 }
 
 output "test_autonomous_exadata_infrastructures" {

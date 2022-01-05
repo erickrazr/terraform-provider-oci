@@ -46,6 +46,7 @@ resource "oci_limits_quota" "test_quota" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "70e3267e-7801-4c33-bba7-f051e7b9940e"
   }
 }
 

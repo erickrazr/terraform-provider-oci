@@ -48,6 +48,7 @@ resource "oci_database_database_software_image" "test_database_software_image" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "34dfd4ac-77ec-48cb-9ce5-21172315704a"
   }
 
   image_shape_family = "VM_BM_SHAPE"

@@ -20,7 +20,9 @@ resource "oci_service_catalog_service_catalog" "test_service_catalog" {
   display_name   = var.service_catalog_display_name
 
   #Optional
-  freeform_tags = var.service_catalog_freeform_tags
+  freeform_tags = merge(var.service_catalog_freeform_tags, {
+    yor_trace = "a8b8a2eb-2d07-4ca7-8346-f772978b76ec"
+  })
 }
 
 data "oci_service_catalog_service_catalogs" "test_service_catalogs" {

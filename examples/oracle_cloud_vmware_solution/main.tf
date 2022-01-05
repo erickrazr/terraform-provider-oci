@@ -52,7 +52,8 @@ resource oci_core_nat_gateway test_nat_gateway_ocvp {
 
   display_name = "NAT Gateway OCVP"
   freeform_tags = {
-    "VCN" = "VCN-2020-09-11T00:43:42"
+    "VCN"     = "VCN-2020-09-11T00:43:42"
+    yor_trace = "42d99f23-5f6f-43f3-a08f-6c348911db5e"
   }
   vcn_id = oci_core_vcn.test_vcn_ocvp.id
 }
@@ -62,7 +63,8 @@ resource oci_core_route_table test_route_table_for_vsphere_vlan {
 
   display_name = "Route Table for VLAN-grk-vSphere"
   freeform_tags = {
-    "VMware" = "VMware-2020-09-11T00:47:02"
+    "VMware"  = "VMware-2020-09-11T00:47:02"
+    yor_trace = "fb90952a-600e-4d8a-b7c9-0442a90b8bf3"
   }
   route_rules {
     #description = <<Optional value not found in discovery>>

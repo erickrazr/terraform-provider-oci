@@ -51,7 +51,9 @@ resource "oci_service_catalog_private_application" "test_private_application" {
   short_description = var.private_application_short_description
 
   #Optional
-  freeform_tags           = var.private_application_freeform_tags
+  freeform_tags = merge(var.private_application_freeform_tags, {
+    yor_trace = "6da291f6-3fb9-4912-9b71-75b1e6191147"
+  })
   logo_file_base64encoded = var.private_application_logo_file_base64encoded
   long_description        = var.private_application_long_description
 }

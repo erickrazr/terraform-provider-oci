@@ -17,6 +17,7 @@ resource "oci_database_autonomous_vm_cluster" "test_autonomous_vm_cluster" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "cdead30f-5b58-4f80-a991-aed376d2bb4d"
   }
 }
 
@@ -38,13 +39,13 @@ variable "okv_secret" {
 
 resource "oci_database_key_store" "test_key_store" {
   compartment_id = var.compartment_id
-  display_name = "Key Store"
+  display_name   = "Key Store"
   type_details {
     admin_username = "username1"
     connection_ips = ["192.1.1.1", "192.1.1.2"]
-    secret_id = var.okv_secret
-    type = "ORACLE_KEY_VAULT"
-    vault_id = var.kms_vault_ocid
+    secret_id      = var.okv_secret
+    type           = "ORACLE_KEY_VAULT"
+    vault_id       = var.kms_vault_ocid
   }
 }
 

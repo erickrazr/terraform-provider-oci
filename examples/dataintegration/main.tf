@@ -81,10 +81,12 @@ resource "oci_dataintegration_workspace" "test_workspace" {
   /*defined_tags = {
     oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name = var.workspace_defined_tags_value
   }*/
-  description                = var.workspace_description
-  dns_server_ip              = var.workspace_dns_server_ip
-  dns_server_zone            = var.workspace_dns_server_zone
-  freeform_tags              = var.workspace_freeform_tags
+  description     = var.workspace_description
+  dns_server_ip   = var.workspace_dns_server_ip
+  dns_server_zone = var.workspace_dns_server_zone
+  freeform_tags = merge(var.workspace_freeform_tags, {
+    yor_trace = "593bc82c-540a-4a2d-bedd-a307a152d71f"
+  })
   is_private_network_enabled = var.workspace_is_private_network_enabled
   subnet_id                  = oci_core_subnet.test_subnet.id
   vcn_id                     = oci_core_vcn.test_vcn.id
@@ -101,5 +103,8 @@ data "oci_dataintegration_workspaces" "test_workspaces" {
 data "oci_dataintegration_workspace" "test_workspace" {
   #Required
   workspace_id = oci_dataintegration_workspace.test_workspace.id
+  freeform_tags = {
+    yor_trace = "593bc82c-540a-4a2d-bedd-a307a152d71f"
+  }
 }
 

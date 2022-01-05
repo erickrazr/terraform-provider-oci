@@ -22,7 +22,7 @@ resource "oci_identity_tag_namespace" "tag-namespace1" {
   compartment_id = var.tenancy_ocid
   description    = "example tag namespace"
   name           = "examples-tag-namespace-all"
-  is_retired = false
+  is_retired     = false
 }
 
 resource "oci_identity_tag" "tag1" {
@@ -57,9 +57,11 @@ resource "oci_management_agent_management_agent" "test_management_agent" {
 resource "oci_opsi_host_insight" "test_host_insight" {
   compartment_id      = var.compartment_ocid
   entity_source       = var.host_insight_entity_source
-  management_agent_id = oci_management_agent_management_agent.test_management_agent.id 
+  management_agent_id = oci_management_agent_management_agent.test_management_agent.id
   defined_tags        = "${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "${var.host_insight_defined_tags_value}")}"
-  freeform_tags = var.host_insight_freeform_tags
+  freeform_tags = merge(var.host_insight_freeform_tags, {
+    yor_trace = "6c36b436-5422-4462-a9d2-b8ef57776f6e"
+  })
   status = var.resource_status
 }
 
@@ -87,5 +89,8 @@ data "oci_opsi_host_insights" "test_host_insights" {
 // Get an host insight
 data "oci_opsi_host_insight" "test_host_insight" {
   host_insight_id = oci_opsi_host_insight.test_host_insight.id
+  freeform_tags = {
+    yor_trace = "6c36b436-5422-4462-a9d2-b8ef57776f6e"
+  }
 }
 

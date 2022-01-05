@@ -47,7 +47,9 @@ resource "oci_identity_network_source" "test_network_source" {
   name           = var.network_source_name
 
   #Optional
-  freeform_tags      = var.network_source_freeform_tags
+  freeform_tags = merge(var.network_source_freeform_tags, {
+    yor_trace = "c5dd88f0-a29f-4209-8b40-60f30877441a"
+  })
   public_source_list = var.network_source_public_source_list
   services           = var.network_source_services
 

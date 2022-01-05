@@ -72,10 +72,12 @@ resource "oci_datascience_model" "tf_model" {
   project_id              = var.project_ocid
   # Optional
   artifact_content_disposition = var.content_disposition
-  defined_tags  = var.model_defined_tags
-  description   = var.model_description
-  display_name  = var.model_display_name
-  freeform_tags = var.model_freeform_tag
+  defined_tags                 = var.model_defined_tags
+  description                  = var.model_description
+  display_name                 = var.model_display_name
+  freeform_tags = merge(var.model_freeform_tag, {
+    yor_trace = "c5f0667f-5ec8-4dd1-bdba-9eb6bedad7d2"
+  })
 }
 
 # A data resource for the list of models in a specified compartment
@@ -183,10 +185,12 @@ resource "oci_datascience_model_deployment" "tf_model_deployment" {
     }
   }
   # Optional
-  defined_tags  = var.model_deployment_defined_tags
-  description   = var.model_deployment_description
-  display_name  = var.model_deployment_display_name
-  freeform_tags = var.model_deployment_freeform_tag
+  defined_tags = var.model_deployment_defined_tags
+  description  = var.model_deployment_description
+  display_name = var.model_deployment_display_name
+  freeform_tags = merge(var.model_deployment_freeform_tag, {
+    yor_trace = "d44bcaa8-8069-4f20-940f-f0ac2b1744bf"
+  })
 }
 
 # The data resource for a list of model deployments in a specified compartment

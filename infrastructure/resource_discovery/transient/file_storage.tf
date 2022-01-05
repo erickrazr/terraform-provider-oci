@@ -12,6 +12,7 @@ resource "oci_file_storage_file_system" "file_storage_file_system_rd" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "f1593389-14bc-4caa-a960-19a6917eb906"
   }
 }
 
@@ -27,6 +28,7 @@ resource "oci_file_storage_mount_target" "file_storage_mount_target_rd" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "3ddff617-c8e0-44c5-b16c-31b91d7ccae2"
   }
 
   nsg_ids = ["${oci_core_network_security_group.test_network_security_group_file_storage_rd.id}"]
@@ -175,5 +177,6 @@ resource "oci_file_storage_snapshot" "file_storage_snapshot_rd" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "09424ec5-6fa3-4b8d-9ccc-755f1e305146"
   }
 }

@@ -56,7 +56,8 @@ resource oci_core_nat_gateway test_nat_gateway_ocvp {
 
   display_name = "NAT Gateway OCVP"
   freeform_tags = {
-    "VCN" = "VCN-2020-09-11T00:43:42"
+    "VCN"     = "VCN-2020-09-11T00:43:42"
+    yor_trace = "c783f194-d401-45b8-8e39-053628946014"
   }
   vcn_id = oci_core_vcn.test_vcn_ocvp.id
 }
@@ -66,7 +67,8 @@ resource oci_core_route_table test_route_table_for_vsphere_vlan {
 
   display_name = "Route Table for VLAN-grk-vSphere"
   freeform_tags = {
-    "VMware" = "VMware-2020-09-11T00:47:02"
+    "VMware"  = "VMware-2020-09-11T00:47:02"
+    yor_trace = "ddd3e168-3c2b-4917-ad1c-2652a6ae7308"
   }
   route_rules {
     #description = <<Optional value not found in discovery>>
@@ -368,10 +370,10 @@ resource "oci_ocvp_sddc" "test_sddc" {
   vsan_vlan_id                = oci_core_vlan.test_vsan_net_vlan.id
   vsphere_vlan_id             = oci_core_vlan.test_vsphere_net_vlan.id
   // Optional
-  provisioning_vlan_id = oci_core_vlan.test_provisioning_vlan.id
-  replication_vlan_id  = oci_core_vlan.test_replication_vlan.id
-  initial_sku          = data.oci_ocvp_supported_skus.test_supported_skus.items[0].name
-  hcx_action = "upgrade"
+  provisioning_vlan_id       = oci_core_vlan.test_provisioning_vlan.id
+  replication_vlan_id        = oci_core_vlan.test_replication_vlan.id
+  initial_sku                = data.oci_ocvp_supported_skus.test_supported_skus.items[0].name
+  hcx_action                 = "upgrade"
   refresh_hcx_license_status = true
   #reserving_hcx_on_premise_license_keys = var.reserving_hcx_on_premise_license_keys
   #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "${var.sddc_defined_tags_value}"}

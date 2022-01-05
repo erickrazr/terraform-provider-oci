@@ -21,8 +21,10 @@ resource "oci_database_autonomous_container_database" "test_autonomous_container
     recovery_window_in_days = var.autonomous_container_database_backup_config_recovery_window_in_days
   }
 
-  compartment_id               = var.compartment_ocid
-  freeform_tags                = var.autonomous_database_freeform_tags
+  compartment_id = var.compartment_ocid
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "cdceee51-760d-4dd3-9e21-1517565a8aa4"
+  })
   service_level_agreement_type = "STANDARD"
 
   maintenance_window_details {
@@ -75,8 +77,10 @@ resource "oci_database_autonomous_database" "test_autonomous_database" {
   autonomous_container_database_id = oci_database_autonomous_container_database.test_autonomous_container_database.id
   db_workload                      = "OLTP"
   display_name                     = "example_autonomous_database-007"
-  freeform_tags                    = var.autonomous_database_freeform_tags
-  is_dedicated                     = "true"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "a3d6d1d0-1ad1-44d8-bd0a-ae4c69aec94c"
+  })
+  is_dedicated       = "true"
   rotate_key_trigger = "true"
 }
 

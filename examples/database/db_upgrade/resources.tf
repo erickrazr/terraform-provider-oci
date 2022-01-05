@@ -43,6 +43,7 @@ resource "oci_database_db_system" "test_db_system" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "9ab4105b-6dbd-41d5-99dc-75ab84b6c451"
   }
   //To ignore DbVersion after database upgrade
   lifecycle {

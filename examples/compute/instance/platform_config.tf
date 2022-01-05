@@ -26,7 +26,7 @@ resource "oci_core_instance" "test_instance_with_platform_config" {
   shape               = var.platform_config_instance_shape
 
   platform_config {
-    type = "${var.instance_platform_config_type}"
+    type                  = "${var.instance_platform_config_type}"
     numa_nodes_per_socket = "${var.instance_platform_config_numa_nodes_per_socket}"
   }
 
@@ -57,6 +57,7 @@ resource "oci_core_instance" "test_instance_with_platform_config" {
 
   freeform_tags = {
     "freeformkey${count.index}" = "freeformvalue${count.index}"
+    yor_trace                   = "ec31b9b9-aa97-425d-bd68-319460a2095a"
   }
   timeouts {
     create = "60m"

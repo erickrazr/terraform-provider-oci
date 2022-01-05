@@ -13,13 +13,13 @@ resource "oci_database_db_system" "test_db_system" {
 
   db_home {
     database {
-      admin_password = var.db_admin_password
+      admin_password      = var.db_admin_password
       tde_wallet_password = var.db_tde_wallet_password
-      db_name        = "aTFdb1"
-      character_set  = var.character_set
-      ncharacter_set = var.n_character_set
-      db_workload    = var.db_workload
-      pdb_name       = var.pdb_name
+      db_name             = "aTFdb1"
+      character_set       = var.character_set
+      ncharacter_set      = var.n_character_set
+      db_workload         = var.db_workload
+      pdb_name            = var.pdb_name
 
       db_backup_config {
         auto_backup_enabled     = true
@@ -53,6 +53,7 @@ resource "oci_database_db_system" "test_db_system" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "12d175cf-8220-49c3-9d2d-1b52e89ac1e1"
   }
 }
 
@@ -61,13 +62,13 @@ resource "oci_database_db_home" "test_db_home" {
   db_system_id = oci_database_db_system.test_db_system.id
 
   database {
-    admin_password = var.db_admin_password
+    admin_password      = var.db_admin_password
     tde_wallet_password = var.db_tde_wallet_password
-    db_name        = "aTFdb2"
-    character_set  = var.character_set
-    ncharacter_set = var.n_character_set
-    db_workload    = var.db_workload
-    pdb_name       = var.pdb_name
+    db_name             = "aTFdb2"
+    character_set       = var.character_set
+    ncharacter_set      = var.n_character_set
+    db_workload         = var.db_workload
+    pdb_name            = var.pdb_name
 
     freeform_tags = {
       "Department" = "Finance"

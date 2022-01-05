@@ -53,18 +53,20 @@ provider "oci" {
 
 resource "oci_bastion_bastion" "test_bastion" {
   #Required
-  bastion_type                   = "STANDARD"
-  compartment_id                 = var.compartment_ocid
-  target_subnet_id               = oci_core_subnet.test_subnet.id
+  bastion_type     = "STANDARD"
+  compartment_id   = var.compartment_ocid
+  target_subnet_id = oci_core_subnet.test_subnet.id
 
   #Optional
   client_cidr_block_allow_list = var.bastion_client_cidr_block_allow_list
-  defined_tags                 = {
+  defined_tags = {
     "${oci_identity_tag_namespace.bastion_tag_namespace1.name}.${oci_identity_tag.bastion_tag1.name}" = var.bastion_defined_tags_value
   }
-  name                         = var.bastion_name
-  freeform_tags                = var.bastion_freeform_tags
-  max_session_ttl_in_seconds   = var.bastion_max_session_ttl_in_seconds
+  name = var.bastion_name
+  freeform_tags = merge(var.bastion_freeform_tags, {
+    yor_trace = "960dbf45-5406-4aa2-a9d0-06b4ec0bc953"
+  })
+  max_session_ttl_in_seconds = var.bastion_max_session_ttl_in_seconds
 }
 
 data "oci_bastion_bastions" "test_bastions" {

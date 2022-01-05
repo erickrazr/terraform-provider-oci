@@ -53,8 +53,8 @@ provider "oci" {
 # primary and standby will switch, so you will need to change the database_id and dataguard_association_id accordingly (autonomous_container_database_id <-> peer_autonomous_container_database_id)
 # (id <-> peer_autonomous_container_database_dataguard_association_id)
 resource "oci_database_autonomous_container_database_dataguard_association_operation" "switchover" {
-  operation = "switchover" # "failover" or "reinstate"
-  autonomous_container_database_id = data.oci_database_autonomous_container_database_dataguard_associations.dataguard_associations.autonomous_container_database_dataguard_associations[0]["autonomous_container_database_id"]
+  operation                                              = "switchover" # "failover" or "reinstate"
+  autonomous_container_database_id                       = data.oci_database_autonomous_container_database_dataguard_associations.dataguard_associations.autonomous_container_database_dataguard_associations[0]["autonomous_container_database_id"]
   autonomous_container_database_dataguard_association_id = data.oci_database_autonomous_container_database_dataguard_associations.dataguard_associations.autonomous_container_database_dataguard_associations[0]["id"]
 }
 /*
@@ -84,11 +84,13 @@ resource "oci_database_autonomous_container_database" "test_autonomous_container
     #Optional
     recovery_window_in_days = var.autonomous_container_database_backup_config_recovery_window_in_days
   }
-  compartment_id               = var.compartment_ocid
+  compartment_id = var.compartment_ocid
 
   peer_autonomous_exadata_infrastructure_id = oci_database_autonomous_exadata_infrastructure.peer_autonomous_exadata_infrastructure.id
-  protection_mode = "MAXIMUM_AVAILABILITY"
-  freeform_tags                = var.autonomous_database_freeform_tags
+  protection_mode                           = "MAXIMUM_AVAILABILITY"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "e33912b3-c003-4623-9910-19e68465bfc3"
+  })
   service_level_agreement_type = "AUTONOMOUS_DATAGUARD"
 
   maintenance_window_details {
@@ -143,8 +145,10 @@ resource "oci_database_autonomous_database" "test_autonomous_database" {
   autonomous_container_database_id = oci_database_autonomous_container_database.test_autonomous_container_database.id
   db_workload                      = "OLTP"
   display_name                     = "example_autonomous_database-009"
-  freeform_tags                    = var.autonomous_database_freeform_tags
-  is_dedicated                     = "true"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "9669b162-6084-4859-b0c2-8d02353b3835"
+  })
+  is_dedicated = "true"
 }
 
 data "oci_database_autonomous_container_databases" "test_autonomous_container_databases" {
@@ -235,8 +239,10 @@ resource "oci_database_autonomous_exadata_infrastructure" "test_autonomous_exada
   compartment_id      = var.compartment_ocid
   display_name        = "TestExadata11"
   domain              = var.autonomous_exadata_infrastructure_domain
-  freeform_tags       = var.autonomous_database_freeform_tags
-  license_model       = "LICENSE_INCLUDED"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "b84a47d7-b005-48d5-ab35-808b2bbe6a91"
+  })
+  license_model = "LICENSE_INCLUDED"
 
   timeouts {
     create = "60h"
@@ -281,8 +287,10 @@ resource "oci_database_autonomous_exadata_infrastructure" "peer_autonomous_exada
   compartment_id      = var.compartment_ocid
   display_name        = "TestExadata12"
   domain              = var.autonomous_exadata_infrastructure_domain
-  freeform_tags       = var.autonomous_database_freeform_tags
-  license_model       = "LICENSE_INCLUDED"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "84a4d237-4dbf-4e72-839a-5bcfdf32eb34"
+  })
+  license_model = "LICENSE_INCLUDED"
   timeouts {
     create = "60h"
     delete = "60h"
@@ -336,4 +344,7 @@ data "oci_database_autonomous_exadata_infrastructures" "test_autonomous_exadata_
 
 data "oci_database_autonomous_exadata_infrastructure" "test_autonomous_exadata_infrastructure" {
   autonomous_exadata_infrastructure_id = oci_database_autonomous_exadata_infrastructure.test_autonomous_exadata_infrastructure.id
+  freeform_tags = {
+    yor_trace = "b84a47d7-b005-48d5-ab35-808b2bbe6a91"
+  }
 }

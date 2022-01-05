@@ -54,7 +54,9 @@ resource "oci_identity_dynamic_group" "dynamic-group-1" {
   defined_tags = {
     "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = var.dynamic_group_defined_tags_value
   }
-  freeform_tags = var.dynamic_group_freeform_tags
+  freeform_tags = merge(var.dynamic_group_freeform_tags, {
+    yor_trace = "7fb7bf2c-4854-4955-8a45-e506c486bbf0"
+  })
 }
 
 data "oci_identity_dynamic_groups" "dynamic-groups-1" {

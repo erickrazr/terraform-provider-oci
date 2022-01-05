@@ -90,7 +90,9 @@ resource "oci_health_checks_http_monitor" "test_http_monitor" {
   targets             = var.http_monitor_targets
 
   #Optional
-  freeform_tags       = var.http_monitor_freeform_tags
+  freeform_tags = merge(var.http_monitor_freeform_tags, {
+    yor_trace = "d0be6812-2ebf-4cdb-b797-1a1c957f483c"
+  })
   is_enabled          = var.http_monitor_is_enabled
   method              = var.http_monitor_method
   path                = var.http_monitor_path

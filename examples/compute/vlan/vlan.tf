@@ -69,6 +69,7 @@ resource "oci_core_vlan" "test_vlan" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "6c657674-9140-498a-b5c5-c6b336c81870"
   }
 }
 

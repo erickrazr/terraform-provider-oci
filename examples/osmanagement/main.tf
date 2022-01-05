@@ -180,6 +180,7 @@ resource "oci_osmanagement_managed_instance_group" "test_managed_instance_group"
   description = "TF Managed instance group"
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "642a45c0-a712-4905-89f5-cd81c71bbb2a"
   }
 }
 
@@ -195,6 +196,7 @@ resource "oci_osmanagement_managed_instance_group" "test_managed_instance_group2
   description = "TF Managed instance group2"
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "ffbb3d86-80bc-400c-b369-bf3e5095f074"
   }
 }
 
@@ -212,6 +214,7 @@ resource "oci_osmanagement_software_source" "test_software_source" {
   description = "TF software source"
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "a457f35d-f60a-4e3a-98da-9ed1a034a78f"
   }
 }
 
@@ -229,6 +232,7 @@ resource "oci_osmanagement_software_source" "test_software_source2" {
   description = "TF software source2"
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "510fa8c0-fce2-4f86-a86c-832baf7ea86c"
   }
 }
 
@@ -287,7 +291,7 @@ data "oci_osmanagement_managed_instance" "test_managed_instance" {
 data "oci_osmanagement_managed_instance_event_report" "test_managed_instance_event_report" {
   #Required
   managed_instance_id = oci_osmanagement_managed_instance_management.test_managed_instance_management.id
-  compartment_id = var.tenancy_ocid
+  compartment_id      = var.tenancy_ocid
 }
 
 output "managed_instance_output" {
