@@ -349,6 +349,7 @@ resource "oci_database_autonomous_database" "test_autonomous_database" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "06cac96c-c096-4839-87ce-6f768dcf69a5"
   }
 
   is_auto_scaling_enabled = "false"

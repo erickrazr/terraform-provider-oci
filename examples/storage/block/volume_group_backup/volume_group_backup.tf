@@ -76,7 +76,7 @@ resource "oci_core_volume" "test_volume" {
 resource "oci_core_volume_group" "test_volume_group" {
   #Required
   availability_domain = data.oci_identity_availability_domain.ad.name
-  compartment_id = var.compartment_ocid
+  compartment_id      = var.compartment_ocid
 
   source_details {
     #Required
@@ -95,15 +95,17 @@ resource "oci_core_volume_group_backup" "test_volume_group_backup" {
   volume_group_id = oci_core_volume_group.test_volume_group.id
 
   #Optional
-  display_name  = var.volume_group_backup_display_name
-  freeform_tags = var.volume_group_backup_freeform_tags
-  type          = var.volume_group_backup_type
+  display_name = var.volume_group_backup_display_name
+  freeform_tags = merge(var.volume_group_backup_freeform_tags, {
+    yor_trace = "471619ce-b51a-4b12-9080-585d960c7bb3"
+  })
+  type = var.volume_group_backup_type
 }
 
 resource "oci_core_volume_group_backup" "test_volume_group_backup_cross_region_sourced" {
   #Required
   source_details {
-    region           = var.source_region
+    region                 = var.source_region
     volume_group_backup_id = var.source_volume_group_backup_id
   }
 
@@ -121,8 +123,8 @@ data "oci_core_volume_group_backups" "test_volume_group_backup" {
   compartment_id = var.compartment_ocid
 
   #Optional
-  display_name = var.volume_group_backup_display_name
-  volume_group_id    = oci_core_volume_group.test_volume_group.id
+  display_name    = var.volume_group_backup_display_name
+  volume_group_id = oci_core_volume_group.test_volume_group.id
 }
 
 output "volumeGroupBackup" {

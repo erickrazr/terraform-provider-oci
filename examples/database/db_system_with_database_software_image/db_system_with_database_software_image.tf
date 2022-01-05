@@ -213,7 +213,7 @@ resource "oci_core_security_list" "ExampleSecurityList" {
   // allow outbound udp traffic on a port range
   egress_security_rules {
     destination = "0.0.0.0/0"
-    protocol    = "17"        // udp
+    protocol    = "17" // udp
     stateless   = true
   }
 
@@ -225,7 +225,7 @@ resource "oci_core_security_list" "ExampleSecurityList" {
 
   // allow inbound ssh traffic from a specific port
   ingress_security_rules {
-    protocol  = "6"         // tcp
+    protocol  = "6" // tcp
     source    = "0.0.0.0/0"
     stateless = false
   }
@@ -295,5 +295,6 @@ resource "oci_database_db_system" "test_db_system" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "a40d869e-636e-4d36-848b-6a818466c7ab"
   }
 }

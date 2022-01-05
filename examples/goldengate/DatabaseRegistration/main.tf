@@ -69,14 +69,14 @@ provider "oci" {
 }
 
 resource "oci_core_subnet" "test_subnet" {
-	cidr_block = "10.0.0.0/24"
-	compartment_id = var.compartment_ocid
-	vcn_id = oci_core_vcn.test_vcn.id
+  cidr_block     = "10.0.0.0/24"
+  compartment_id = var.compartment_ocid
+  vcn_id         = oci_core_vcn.test_vcn.id
 }
 
 resource "oci_core_vcn" "test_vcn" {
-	cidr_block = "10.0.0.0/16"
-	compartment_id = var.compartment_ocid
+  cidr_block     = "10.0.0.0/16"
+  compartment_id = var.compartment_ocid
 }
 
 resource "oci_golden_gate_database_registration" "test_database_registration" {
@@ -89,11 +89,13 @@ resource "oci_golden_gate_database_registration" "test_database_registration" {
   username       = var.database_registration_username
 
   #Optional
-  connection_string     = var.database_registration_connection_string
-  database_id           = data.oci_database_databases.t.databases.0.id
+  connection_string = var.database_registration_connection_string
+  database_id       = data.oci_database_databases.t.databases.0.id
   #defined_tags          = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.database_registration_defined_tags_value)
-  description           = var.database_registration_description
-  freeform_tags         = var.database_registration_freeform_tags
+  description = var.database_registration_description
+  freeform_tags = merge(var.database_registration_freeform_tags, {
+    yor_trace = "9123e3a9-fd09-44e1-83d2-5019ea2f8003"
+  })
   #ip_address            = data.oci_core_vnic.t.0.private_ip_address //vnic_id is null because of using FAKEHOSTSERIAL header as per db_system_resource_allvm_test.go
   key_id                = var.kms_key_ocid
   secret_compartment_id = var.compartment_ocid
@@ -112,27 +114,27 @@ data "oci_golden_gate_database_registrations" "test_database_registrations" {
 }
 
 data "oci_database_db_systems" "t" {
-	compartment_id = var.compartment_ocid			
+  compartment_id = var.compartment_ocid
 }
 
 data "oci_database_db_homes" "t" {
-	compartment_id = var.compartment_ocid
-	db_system_id = data.oci_database_db_systems.t.db_systems.0.id
+  compartment_id = var.compartment_ocid
+  db_system_id   = data.oci_database_db_systems.t.db_systems.0.id
 }
 
 data "oci_database_databases" "t" {
-	compartment_id = var.compartment_ocid
-	db_home_id = data.oci_database_db_homes.t.db_homes.0.id	
+  compartment_id = var.compartment_ocid
+  db_home_id     = data.oci_database_db_homes.t.db_homes.0.id
 }
 
 data "oci_database_db_nodes" "t" {
-    #Required
-    compartment_id = var.compartment_ocid
-    #Optional
-    db_system_id = data.oci_database_db_systems.t.db_systems.0.id
+  #Required
+  compartment_id = var.compartment_ocid
+  #Optional
+  db_system_id = data.oci_database_db_systems.t.db_systems.0.id
 }
 
 #data "oci_core_vnic" "t" {
-    #Required
-    #vnic_id = data.oci_database_db_nodes.t.vnic_id //believe this is null when using FAKEHOSTSERIAL header
+#Required
+#vnic_id = data.oci_database_db_nodes.t.vnic_id //believe this is null when using FAKEHOSTSERIAL header
 #}

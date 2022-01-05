@@ -73,6 +73,7 @@ resource "oci_database_db_system" "test_db_system" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "f4da3894-b8d7-480f-ac4a-d748513e0e67"
   }
 }
 
@@ -112,12 +113,12 @@ resource "oci_database_db_system" "test_db_system_2" {
 
   db_home {
     database {
-      admin_password = var.db_admin_password
-      db_name        = "TFdb1Ex2"
-      character_set  = var.character_set
-      ncharacter_set = var.n_character_set
-      db_workload    = var.db_workload
-      pdb_name       = var.pdb_name
+      admin_password             = var.db_admin_password
+      db_name                    = "TFdb1Ex2"
+      character_set              = var.character_set
+      ncharacter_set             = var.n_character_set
+      db_workload                = var.db_workload
+      pdb_name                   = var.pdb_name
       database_software_image_id = "${var.test_database_software_image_ocid}"
 
       db_backup_config {
@@ -126,8 +127,8 @@ resource "oci_database_db_system" "test_db_system_2" {
     }
 
     database_software_image_id = "${var.test_database_software_image_ocid}"
-    db_version   = "19.0.0.0"
-    display_name = "MyTFDBHome1Exa2"
+    db_version                 = "19.0.0.0"
+    display_name               = "MyTFDBHome1Exa2"
   }
 
   maintenance_window_details {
@@ -169,6 +170,7 @@ resource "oci_database_db_system" "test_db_system_2" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "ab48a7d9-d08e-46db-8714-0add206b6406"
   }
 }
 

@@ -15,6 +15,7 @@ resource "oci_file_storage_mount_target" "my_mount_target_1" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "99954674-e499-4591-9191-50fdf84a7e75"
   }
 
   nsg_ids = [oci_core_network_security_group.test_network_security_group.id]
@@ -34,6 +35,7 @@ resource "oci_file_storage_mount_target" "my_mount_target_2" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "3f4493c6-bbb6-4218-a76c-5c28688f8680"
   }
 
   nsg_ids = [oci_core_network_security_group.test_network_security_group.id]

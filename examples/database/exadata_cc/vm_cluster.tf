@@ -17,8 +17,8 @@ resource "oci_database_vm_cluster_network" "test_vm_cluster_network" {
       "192.168.19.8",
     ]
 
-    port = 1521
-    scan_listener_port_tcp = 1521
+    port                       = 1521
+    scan_listener_port_tcp     = 1521
     scan_listener_port_tcp_ssl = 2484
   }
 
@@ -71,6 +71,7 @@ resource "oci_database_vm_cluster_network" "test_vm_cluster_network" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "7257d7cf-9014-4a74-8ffe-0247db149dfc"
   }
 
   validate_vm_cluster_network = true
@@ -78,7 +79,7 @@ resource "oci_database_vm_cluster_network" "test_vm_cluster_network" {
 
 data "oci_database_gi_versions" "gi_version" {
   compartment_id = var.compartment_id
-  shape = "ExadataCC.Quarter3.100"
+  shape          = "ExadataCC.Quarter3.100"
 }
 
 resource "oci_database_vm_cluster" "test_vm_cluster" {
@@ -98,6 +99,7 @@ resource "oci_database_vm_cluster" "test_vm_cluster" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "9be96692-7ca4-432f-886a-484efe31b2be"
   }
 
   is_local_backup_enabled     = "false"
@@ -186,6 +188,7 @@ resource "oci_database_backup_destination" "test_backup_destination_nfs" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "5897eccf-4c6a-4512-9d80-c130262bdff0"
   }
   mount_type_details {
     local_mount_point_path = "localMountPointPath"

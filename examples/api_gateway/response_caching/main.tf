@@ -154,8 +154,10 @@ resource "oci_apigateway_gateway" "test_gateway" {
   subnet_id      = oci_core_subnet.regional_subnet.id
 
   #Optional
-  display_name   = var.gateway_display_name
-  freeform_tags  = var.gateway_freeform_tags
+  display_name = var.gateway_display_name
+  freeform_tags = merge(var.gateway_freeform_tags, {
+    yor_trace = "95bedf3b-1baa-4c74-8559-9fcb55c79769"
+  })
   response_cache_details {
     #Required
     type = var.gateway_response_cache_details_type
@@ -191,7 +193,7 @@ resource "oci_apigateway_deployment" "test_deployment" {
         type = var.deployment_specification_routes_backend_type
         url  = var.deployment_specification_routes_backend_url
       }
-      path = var.deployment_specification_routes_path
+      path    = var.deployment_specification_routes_path
       methods = var.deployment_specification_routes_methods
       request_policies {
         response_cache_lookup {
@@ -220,8 +222,8 @@ data "oci_apigateway_gateways" "test_gateways" {
   compartment_id = var.compartment_ocid
 
   #Optional
-  display_name   = oci_apigateway_gateway.test_gateway.display_name
-  state          = var.gateway_state
+  display_name = oci_apigateway_gateway.test_gateway.display_name
+  state        = var.gateway_state
 }
 
 data "oci_apigateway_deployments" "test_deployments" {
@@ -229,6 +231,6 @@ data "oci_apigateway_deployments" "test_deployments" {
   compartment_id = var.compartment_ocid
 
   #Optional
-  gateway_id     = oci_apigateway_gateway.test_gateway.id
-  state          = var.deployment_state
+  gateway_id = oci_apigateway_gateway.test_gateway.id
+  state      = var.deployment_state
 }

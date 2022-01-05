@@ -4,47 +4,49 @@
 // Create an External Container Database resource
 resource "oci_database_external_container_database" "test_external_container_database" {
   compartment_id = var.compartment_ocid
-  display_name = var.external_container_database_display_name
+  display_name   = var.external_container_database_display_name
 
   #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
   #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "f37a9790-e26d-498c-9be4-40f14f997266"
   }
 }
 
 // Create a Connector using credential name for the External Container Database resource
 resource "oci_database_external_database_connector" "test_external_container_database_connector" {
-    connection_credentials {
-        credential_type = var.credential_type
-        credential_name = var.credential_name
-    }
-    connection_string {
-        hostname = var.hostname
-        port = var.port
-        protocol = var.protocol
-        service = var.service
-    }
-    connector_agent_id = var.connector_agent_id
-    display_name = var.external_database_connector_display_name
-    external_database_id = oci_database_external_container_database.test_external_container_database.id
-    connector_type = var.connector_type
-    #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
-    #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
+  connection_credentials {
+    credential_type = var.credential_type
+    credential_name = var.credential_name
+  }
+  connection_string {
+    hostname = var.hostname
+    port     = var.port
+    protocol = var.protocol
+    service  = var.service
+  }
+  connector_agent_id   = var.connector_agent_id
+  display_name         = var.external_database_connector_display_name
+  external_database_id = oci_database_external_container_database.test_external_container_database.id
+  connector_type       = var.connector_type
+  #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
+  #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
 
-    freeform_tags = {
-      "Department" = "Finance"
-    }
+  freeform_tags = {
+    "Department" = "Finance"
+    yor_trace    = "5361dba4-15da-4772-ba6d-f1b10ca9e669"
+  }
 }
 
 // Enable Database Management
 
 resource "oci_database_external_container_database_management" "test_enable_external_container_database_management" {
-    external_container_database_id = oci_database_external_container_database.test_external_container_database.id
-    external_database_connector_id = oci_database_external_database_connector.test_external_container_database_connector.id
-    license_model = var.license_model
-    enable_management = true
+  external_container_database_id = oci_database_external_container_database.test_external_container_database.id
+  external_database_connector_id = oci_database_external_database_connector.test_external_container_database_connector.id
+  license_model                  = var.license_model
+  enable_management              = true
 }
 
 // Disable Database Management
@@ -58,15 +60,19 @@ resource "oci_database_external_container_database_management" "test_enable_exte
 }*/
 
 data "oci_database_external_container_database" "test_external_container_database" {
-	#Required
-	external_container_database_id = oci_database_external_container_database.test_external_container_database.id
+  #Required
+  external_container_database_id = oci_database_external_container_database.test_external_container_database.id
+  freeform_tags = {
+    Department = "Finance"
+    yor_trace  = "f37a9790-e26d-498c-9be4-40f14f997266"
+  }
 }
 
 data "oci_database_external_container_databases" "test_external_container_databases" {
-	#Required
-	compartment_id = var.compartment_ocid
+  #Required
+  compartment_id = var.compartment_ocid
 
-	#Optional
-	display_name = var.external_container_database_display_name
-	state = var.external_database_state
+  #Optional
+  display_name = var.external_container_database_display_name
+  state        = var.external_database_state
 }

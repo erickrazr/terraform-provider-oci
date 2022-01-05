@@ -198,9 +198,11 @@ resource "oci_logging_unified_agent_configuration" "test_unified_agent_configura
   defined_tags = {
     "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = var.log_group_defined_tags_value
   }
-  description   = var.unified_agent_configuration_description
-  display_name  = var.unified_agent_configuration_display_name
-  freeform_tags = var.unified_agent_configuration_freeform_tags
+  description  = var.unified_agent_configuration_description
+  display_name = var.unified_agent_configuration_display_name
+  freeform_tags = merge(var.unified_agent_configuration_freeform_tags, {
+    yor_trace = "9aca1148-9127-4167-9600-3aee78b3a9e7"
+  })
   group_association {
 
     #Optional

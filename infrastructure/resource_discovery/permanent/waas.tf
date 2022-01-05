@@ -24,6 +24,7 @@ resource "oci_waas_custom_protection_rule" "custom_protection_rule_rd" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "c511e56c-4deb-45f6-9a6c-1cc6b83f53e2"
   }
 }
 
@@ -35,6 +36,7 @@ resource "oci_waas_address_list" "address_list_rd" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "ebb304a5-791c-4e06-a516-208b6149cd9a"
   }
 }
 

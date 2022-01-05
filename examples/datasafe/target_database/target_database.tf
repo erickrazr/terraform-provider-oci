@@ -91,35 +91,37 @@ resource "oci_database_autonomous_database" "autonomous_database" {
   db_name                  = "adbdb1"
 
   #Optional
-  db_workload                                    = var.autonomous_database_db_workload
-  display_name                                   = "example_autonomous_database"
-  freeform_tags                                  = var.autonomous_database_freeform_tags
+  db_workload  = var.autonomous_database_db_workload
+  display_name = "example_autonomous_database"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "e7eac9b3-6690-4938-8ba2-d1ebfce36c8d"
+  })
   is_auto_scaling_enabled                        = "true"
   license_model                                  = var.autonomous_database_license_model
   is_preview_version_with_service_terms_accepted = "false"
 }
 
 resource "oci_data_safe_target_database" "test_target_database" {
-#Required
-    compartment_id = var.compartment_ocid
-    display_name = var.target_database_display_name
+  #Required
+  compartment_id = var.compartment_ocid
+  display_name   = var.target_database_display_name
 
-    database_details {
-        database_type = "AUTONOMOUS_DATABASE"
-        infrastructure_type = "ORACLE_CLOUD"
-        autonomous_database_id = oci_database_autonomous_database.autonomous_database.id
-    }
+  database_details {
+    database_type          = "AUTONOMOUS_DATABASE"
+    infrastructure_type    = "ORACLE_CLOUD"
+    autonomous_database_id = oci_database_autonomous_database.autonomous_database.id
+  }
 
-   #Optional
-     connection_option {
-     connection_type = "PRIVATE_ENDPOINT"
-     datasafe_private_endpoint_id = oci_data_safe_data_safe_private_endpoint.test_data_safe_private_endpoint.id
-     }
-     description = var.target_database_description
+  #Optional
+  connection_option {
+    connection_type              = "PRIVATE_ENDPOINT"
+    datasafe_private_endpoint_id = oci_data_safe_data_safe_private_endpoint.test_data_safe_private_endpoint.id
+  }
+  description = var.target_database_description
 }
 
 data "oci_data_safe_target_databases" "test_target_databases" {
-    compartment_id = var.compartment_ocid
-    display_name = var.target_database_display_name
-    target_database_id = oci_data_safe_target_database.test_target_database.id
+  compartment_id     = var.compartment_ocid
+  display_name       = var.target_database_display_name
+  target_database_id = oci_data_safe_target_database.test_target_database.id
 }

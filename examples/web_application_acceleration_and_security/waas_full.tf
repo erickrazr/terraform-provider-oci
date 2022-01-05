@@ -67,6 +67,7 @@ resource "oci_waas_custom_protection_rule" "test_custom_protection_rule" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "6ed769fc-d982-44e1-8130-07ac8952fa42"
   }
 }
 
@@ -80,6 +81,7 @@ resource "oci_waas_address_list" "test_address_list" {
   #defined_tags = {"example-tag-namespace-all.example-tag", "originalValue"}
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "baf42a4b-d3a8-4b71-90c7-53ef615c3fd9"
   }
 }
 
@@ -507,6 +509,7 @@ resource "oci_waas_http_redirect" "test_http_redirect" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "4040d0ad-8f3d-46fa-9b4b-045b30e179a6"
   }
 
   response_code = 301

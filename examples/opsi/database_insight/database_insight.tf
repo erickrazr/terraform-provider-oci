@@ -23,7 +23,7 @@ resource "oci_identity_tag_namespace" "tag-namespace1" {
   compartment_id = var.tenancy_ocid
   description    = "example tag namespace"
   name           = "examples-tag-namespace-all"
-  is_retired = false
+  is_retired     = false
 }
 
 
@@ -67,8 +67,10 @@ resource "oci_opsi_database_insight" "test_database_insight" {
   enterprise_manager_identifier        = var.enterprise_manager_id
   entity_source                        = var.database_insight_entity_source
   defined_tags                         = "${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "${var.database_insight_defined_tags_value}")}"
-  freeform_tags                        = var.database_insight_freeform_tags
-  status                               = var.resource_status
+  freeform_tags = merge(var.database_insight_freeform_tags, {
+    yor_trace = "564cf607-3e7f-49f8-a640-8e9e9e79a101"
+  })
+  status = var.resource_status
 }
 
 variable "database_insight_state" {
@@ -94,5 +96,8 @@ data "oci_opsi_database_insights" "test_database_insights" {
 // Get an EM managed database insight
 data "oci_opsi_database_insight" "test_database_insight" {
   database_insight_id = oci_opsi_database_insight.test_database_insight.id
+  freeform_tags = {
+    yor_trace = "564cf607-3e7f-49f8-a640-8e9e9e79a101"
+  }
 }
 

@@ -73,6 +73,7 @@ resource "oci_database_db_system" "test_db_system" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "d4a9d433-4a46-4383-b2d8-ea771569743d"
   }
 }
 
@@ -140,6 +141,7 @@ resource "oci_database_db_system" "test_db_system_2" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "84e81c40-fb1b-446c-809d-e3a0b814e31d"
   }
 }
 
@@ -154,5 +156,5 @@ resource "oci_database_data_guard_association" "test_data_guard_association" {
 
   #required for ExistingDbSystem creation_type
   peer_db_system_id = oci_database_db_system.test_db_system_2.id
-  peer_db_home_id = oci_database_db_system.test_db_system_2.db_home[0].id
+  peer_db_home_id   = oci_database_db_system.test_db_system_2.db_home[0].id
 }

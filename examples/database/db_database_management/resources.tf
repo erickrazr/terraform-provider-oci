@@ -36,13 +36,14 @@ resource "oci_database_db_system" "test_db_system" {
   data_storage_size_in_gb = var.data_storage_size_in_gb
   license_model           = var.license_model
   node_count              = data.oci_database_db_system_shapes.test_db_system_shapes.db_system_shapes[0]["minimum_node_count"]
-//  nsg_ids                 = [oci_core_network_security_group.test_network_security_group_backup.id, oci_core_network_security_group.test_network_security_group.id]
+  //  nsg_ids                 = [oci_core_network_security_group.test_network_security_group_backup.id, oci_core_network_security_group.test_network_security_group.id]
 
   #To use defined_tags, set the values below to an existing tag namespace, refer to the identity example on how to create tag namespaces
   #defined_tags  = {"${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}" = "value"}
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "ae5085ce-6106-4511-85ec-33a9df7e8e15"
   }
   //To ignore DbVersion after database upgrade
   lifecycle {
@@ -53,13 +54,13 @@ resource "oci_database_db_system" "test_db_system" {
 }
 
 resource "oci_database_cloud_database_management" "test" {
-  database_id           = data.oci_database_databases.databases.databases.0.id
-  management_type       = "BASIC"
-  private_end_point_id  = "ocid1.dbmgmtprivateendpoint.oc1.ap-hyderabad-1.amaaaaaacsc5xjaamlmllhfxmxict6jf3irizwsydralyklninmwsrovggkq"
-  service_name          = "DB0809_hyd17q.sub02231620340.dbmgmtcustomer.oraclevcn.com"
+  database_id          = data.oci_database_databases.databases.databases.0.id
+  management_type      = "BASIC"
+  private_end_point_id = "ocid1.dbmgmtprivateendpoint.oc1.ap-hyderabad-1.amaaaaaacsc5xjaamlmllhfxmxict6jf3irizwsydralyklninmwsrovggkq"
+  service_name         = "DB0809_hyd17q.sub02231620340.dbmgmtcustomer.oraclevcn.com"
   credentialdetails {
-    user_name           = "dbsnmp"
-    password_secret_id  = "ocid1.vaultsecret.oc1.ap-hyderabad-1.amaaaaaacsc5xjaa2q7r6kfzdm44ylxqwomht6uinb5zyhezka7sl2t62ecq"
+    user_name          = "dbsnmp"
+    password_secret_id = "ocid1.vaultsecret.oc1.ap-hyderabad-1.amaaaaaacsc5xjaa2q7r6kfzdm44ylxqwomht6uinb5zyhezka7sl2t62ecq"
   }
-  enable_management     = "true"
+  enable_management = "true"
 }

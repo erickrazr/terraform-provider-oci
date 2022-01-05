@@ -8,13 +8,15 @@ variable "email_domain_description" {
 
 resource "oci_email_email_domain" "test_email_domain" {
 
-	#Required
-	compartment_id = var.compartment_ocid
-	name = "${random_id.random_email_domain.id}.email.${var.region}.dummydomain.com"
+  #Required
+  compartment_id = var.compartment_ocid
+  name           = "${random_id.random_email_domain.id}.email.${var.region}.dummydomain.com"
 
-	#Optional
-	description = var.email_domain_description
-	freeform_tags = {"Department"= "Finance"}
+  #Optional
+  description = var.email_domain_description
+  freeform_tags = { "Department" = "Finance"
+    yor_trace = "0b3ccb38-9cf0-48fd-a76c-c1d16aefac21"
+  }
 
   depends_on = [random_id.random_email_domain]
 }

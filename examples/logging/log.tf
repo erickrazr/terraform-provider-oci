@@ -80,7 +80,9 @@ resource "oci_logging_log" "test_log" {
   defined_tags = {
     "${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag2.name}" = var.log_defined_tags_value
   }
-  freeform_tags      = var.log_freeform_tags
+  freeform_tags = merge(var.log_freeform_tags, {
+    yor_trace = "09b4d98b-46e6-43c0-b394-327bf283163e"
+  })
   is_enabled         = "false"
   retention_duration = "30"
 }

@@ -26,11 +26,13 @@ resource "oci_database_autonomous_database" "autonomous_data_warehouse" {
   db_name                  = "adbdw1f"
 
   #Optional
-//If a db version is passed, it must be valid
-//db_version              = data.oci_database_autonomous_db_versions.test_autonomous_dw_versions.autonomous_db_versions[0].version
-  db_workload             = var.autonomous_data_warehouse_db_workload
-  display_name            = "example_autonomous_data_warehouse"
-  freeform_tags           = var.autonomous_database_freeform_tags
+  //If a db version is passed, it must be valid
+  //db_version              = data.oci_database_autonomous_db_versions.test_autonomous_dw_versions.autonomous_db_versions[0].version
+  db_workload  = var.autonomous_data_warehouse_db_workload
+  display_name = "example_autonomous_data_warehouse"
+  freeform_tags = merge(var.autonomous_database_freeform_tags, {
+    yor_trace = "0e524a29-2422-4e51-9b0e-6764ca4f335b"
+  })
   is_auto_scaling_enabled = "false"
   license_model           = var.autonomous_database_license_model
 }

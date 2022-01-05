@@ -48,6 +48,7 @@ resource "oci_oce_oce_instance" "test_oce_instance" {
   #optional
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "7ecf3f78-a63d-4534-8c0a-f5929f029489"
   }
   description           = "description"
   instance_access_type  = "PUBLIC"
@@ -70,6 +71,10 @@ data "oci_oce_oce_instances" "test_oce_instances" {
 
 data "oci_oce_oce_instance" "test_oce_instance" {
   oce_instance_id = oci_oce_oce_instance.test_oce_instance.id
+  freeform_tags = {
+    freeformkey = "freeformvalue"
+    yor_trace   = "7ecf3f78-a63d-4534-8c0a-f5929f029489"
+  }
 }
 
 output "active_oce_instances" {
@@ -81,6 +86,6 @@ output "output_nested_service_data" {
 }
 
 data "oci_objectstorage_namespace" "test_namespace" {
-    #Optional
-    compartment_id = var.compartment_ocid
+  #Optional
+  compartment_id = var.compartment_ocid
 }

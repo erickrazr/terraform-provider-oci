@@ -33,11 +33,11 @@ provider "oci" {
 }
 
 resource "oci_analytics_analytics_instance" "test_oce_instance_public" {
-  compartment_id     = var.compartment_ocid
-  description        = "OAC instance"
-//  email_notification = var.email_notification
-  feature_set        = "ENTERPRISE_ANALYTICS"
-  license_type       = "LICENSE_INCLUDED"
+  compartment_id = var.compartment_ocid
+  description    = "OAC instance"
+  //  email_notification = var.email_notification
+  feature_set  = "ENTERPRISE_ANALYTICS"
+  license_type = "LICENSE_INCLUDED"
 
   capacity {
     capacity_type  = "OLPU_COUNT"
@@ -47,6 +47,7 @@ resource "oci_analytics_analytics_instance" "test_oce_instance_public" {
   name = "testoacinstance1"
   freeform_tags = {
     "freeformkey" = "freeformvalue"
+    yor_trace     = "1efe045a-be2d-4435-a908-5a0f7c668a46"
   }
   state             = "ACTIVE"
   idcs_access_token = var.idcs_access_token
@@ -69,13 +70,13 @@ resource "oci_analytics_analytics_instance" "test_oce_instance_public" {
 
 # Create a private access channel for the instance
 resource "oci_analytics_analytics_instance_private_access_channel" "test_private_access_channel" {
-#Required
+  #Required
   analytics_instance_id = oci_analytics_analytics_instance.test_oce_instance_public.id
-  display_name = "Example Private Access Channel"
-  subnet_id = oci_core_subnet.test_subnet.id
-  vcn_id = oci_core_vcn.test_vcn.id
+  display_name          = "Example Private Access Channel"
+  subnet_id             = oci_core_subnet.test_subnet.id
+  vcn_id                = oci_core_vcn.test_vcn.id
   private_source_dns_zones {
-    dns_zone = "examplecorp.com"
+    dns_zone    = "examplecorp.com"
     description = "Example dns zone"
   }
 }
@@ -92,6 +93,6 @@ resource "oci_analytics_analytics_instances_vanity_url" "test_analytics_instance
   #Optional
   description = "description"
   # passphrase is required if the private key was created with a passphrase
-  passphrase  = "passphrase"
+  passphrase = "passphrase"
 }
 

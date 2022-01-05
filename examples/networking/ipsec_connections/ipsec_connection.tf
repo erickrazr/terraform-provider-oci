@@ -63,6 +63,7 @@ resource "oci_core_ipsec" "test_ip_sec_connection" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "9f381270-ea54-4caa-b3a7-63e5cd9f41b0"
   }
 }
 

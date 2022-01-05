@@ -33,11 +33,13 @@ resource "oci_apigateway_api" "test_api" {
   compartment_id = var.compartment_id
 
   #Optional
-  content       = var.api_content
-  defined_tags  = { "example-tag-namespace-all.example-tag" = "value" }
+  content      = var.api_content
+  defined_tags = { "example-tag-namespace-all.example-tag" = "value" }
 
-  display_name  = var.api_display_name
-  freeform_tags = { "Department" = "Finance" }
+  display_name = var.api_display_name
+  freeform_tags = { "Department" = "Finance"
+    yor_trace = "601ced42-b4f5-47b3-8682-df3bc425143f"
+  }
 }
 
 data "oci_apigateway_apis" "test_apis" {

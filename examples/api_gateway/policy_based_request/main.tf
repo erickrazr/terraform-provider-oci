@@ -628,8 +628,10 @@ resource "oci_apigateway_deployment" "test_deployment" {
   }
 
   #Optional
-  display_name  = var.deployment_display_name
-  freeform_tags = var.deployment_freeform_tags
+  display_name = var.deployment_display_name
+  freeform_tags = merge(var.deployment_freeform_tags, {
+    yor_trace = "5c11eb03-3aa1-4373-8ebc-2cfaf118d996"
+  })
 }
 
 resource "oci_apigateway_gateway" "test_gateway" {

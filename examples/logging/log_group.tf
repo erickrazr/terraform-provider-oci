@@ -51,7 +51,9 @@ resource "oci_logging_log_group" "test_log_group" {
   }
   description = "description"
 
-  freeform_tags = var.log_group_freeform_tags
+  freeform_tags = merge(var.log_group_freeform_tags, {
+    yor_trace = "19915a45-fc55-4351-8700-363276c53889"
+  })
 }
 
 data "oci_logging_log_groups" "test_log_groups" {

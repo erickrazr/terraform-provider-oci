@@ -162,7 +162,9 @@ resource "oci_health_checks_http_monitor" "test_http_monitor" {
   targets             = var.http_monitor_targets
 
   #Optional
-  freeform_tags       = var.http_monitor_freeform_tags
+  freeform_tags = merge(var.http_monitor_freeform_tags, {
+    yor_trace = "e12f3965-a2bb-449a-ba8a-489e506c4e3c"
+  })
   is_enabled          = var.http_monitor_is_enabled
   method              = var.http_monitor_method
   path                = var.http_monitor_path
@@ -189,7 +191,9 @@ resource "oci_dns_steering_policy" "test_steering_policy" {
     pool        = var.steering_policy_answers_pool
   }
 
-  freeform_tags           = var.steering_policy_freeform_tags
+  freeform_tags = merge(var.steering_policy_freeform_tags, {
+    yor_trace = "b20c80a5-65ec-48ee-a10e-aed75d7a7936"
+  })
   health_check_monitor_id = oci_health_checks_http_monitor.test_http_monitor.id
 
   rules {

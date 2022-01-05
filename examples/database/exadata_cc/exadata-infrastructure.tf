@@ -63,6 +63,7 @@ resource "oci_database_exadata_infrastructure" "test_exadata_infrastructure" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "4bf04f68-d01c-4345-9539-d2a44fc018d6"
   }
 
   maintenance_window {
@@ -72,7 +73,7 @@ resource "oci_database_exadata_infrastructure" "test_exadata_infrastructure" {
       name = "TUESDAY"
     }
 
-    hours_of_day = ["4"]
+    hours_of_day       = ["4"]
     lead_time_in_weeks = 2
 
     months {
@@ -93,7 +94,7 @@ resource "oci_database_exadata_infrastructure" "test_exadata_infrastructure" {
 
     weeks_of_month = ["2"]
   }
-  
+
 }
 
 data "oci_database_exadata_infrastructure_download_config_file" "test_exadata_infrastructure_download_config_file" {

@@ -51,9 +51,11 @@ resource "oci_apm_apm_domain" "test_apm_domain" {
 
   #Optional
   #defined_tags  = map(oci_identity_tag_namespace.tag-namespace1.name.oci_identity_tag.tag1.name, var.apm_domain_defined_tags_value)
-  description   = var.apm_domain_description
-  freeform_tags = var.apm_domain_freeform_tags
-  is_free_tier  = var.apm_domain_is_free_tier
+  description = var.apm_domain_description
+  freeform_tags = merge(var.apm_domain_freeform_tags, {
+    yor_trace = "23847039-91db-4d2c-9dcd-27807ae892dc"
+  })
+  is_free_tier = var.apm_domain_is_free_tier
 }
 
 data "oci_apm_apm_domains" "test_apm_domains" {

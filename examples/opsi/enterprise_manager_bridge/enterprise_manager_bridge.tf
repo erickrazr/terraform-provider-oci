@@ -18,7 +18,7 @@ provider "oci" {
 }
 
 data "oci_objectstorage_namespace" "test_namespace" {
-    compartment_id = var.compartment_ocid
+  compartment_id = var.compartment_ocid
 }
 
 variable "bucket_name" {
@@ -26,16 +26,16 @@ variable "bucket_name" {
 }
 
 resource "oci_objectstorage_bucket" "test_bucket" {
-  name = var.bucket_name
+  name           = var.bucket_name
   compartment_id = var.compartment_ocid
-  namespace = data.oci_objectstorage_namespace.test_namespace.namespace
+  namespace      = data.oci_objectstorage_namespace.test_namespace.namespace
 }
 
 resource "oci_identity_tag_namespace" "tag-namespace1" {
   compartment_id = var.tenancy_ocid
   description    = "example tag namespace"
   name           = "example-tag-namespace-all"
-  is_retired = false
+  is_retired     = false
 }
 
 
@@ -43,7 +43,7 @@ resource "oci_identity_tag" "tag1" {
   description      = "example tag"
   name             = "example-tag"
   tag_namespace_id = oci_identity_tag_namespace.tag-namespace1.id
-  is_cost_tracking = false 
+  is_cost_tracking = false
   is_retired       = false
 }
 
@@ -76,9 +76,11 @@ resource "oci_opsi_enterprise_manager_bridge" "test_enterprise_manager_bridge" {
   object_storage_bucket_name = oci_objectstorage_bucket.test_bucket.name
 
   #Optional
-  defined_tags               = "${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "${var.enterprise_manager_bridge_defined_tags_value}")}"
-  freeform_tags              = var.enterprise_manager_bridge_freeform_tags
-  description 		     = var.enterprise_manager_bridge_description
+  defined_tags = "${map("${oci_identity_tag_namespace.tag-namespace1.name}.${oci_identity_tag.tag1.name}", "${var.enterprise_manager_bridge_defined_tags_value}")}"
+  freeform_tags = merge(var.enterprise_manager_bridge_freeform_tags, {
+    yor_trace = "18c3967f-0843-4534-9058-597b7e9ff9a2"
+  })
+  description = var.enterprise_manager_bridge_description
 }
 
 output "enterprise_manager_bridge_id" {
@@ -93,6 +95,9 @@ data "oci_opsi_enterprise_manager_bridges" "test_enterprise_manager_bridges" {
 
 // Get EM Bridge for a particular id 
 data "oci_opsi_enterprise_manager_bridge" "test_enterprise_manager_bridge" {
-  enterprise_manager_bridge_id = oci_opsi_enterprise_manager_bridge.test_enterprise_manager_bridge.id 
+  enterprise_manager_bridge_id = oci_opsi_enterprise_manager_bridge.test_enterprise_manager_bridge.id
+  freeform_tags = {
+    yor_trace = "18c3967f-0843-4534-9058-597b7e9ff9a2"
+  }
 }
 

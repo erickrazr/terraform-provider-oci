@@ -11,6 +11,7 @@ resource "oci_file_storage_snapshot" "my_snapshot" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "331dcbe8-3918-4a8b-9668-604c415f9f42"
   }
 }
 

@@ -23,12 +23,13 @@ resource "oci_database_exadata_infrastructure" "exadata_infrastructure_rd" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "2c2b2fc8-87b7-4b95-9b38-ab8061a215ee"
   }
 }
 
 data "oci_database_gi_versions" "gi_version" {
   compartment_id = var.compartment_ocid
-  shape = "ExadataCC.Quarter3.100"
+  shape          = "ExadataCC.Quarter3.100"
 }
 
 resource "oci_database_vm_cluster_network" "vm_cluster_network_rd" {
@@ -98,6 +99,7 @@ resource "oci_database_vm_cluster_network" "vm_cluster_network_rd" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "d47e19a8-60f9-45d9-a3d5-f81747503892"
   }
 
   validate_vm_cluster_network = true
@@ -118,6 +120,7 @@ resource "oci_database_vm_cluster" "test_vm_cluster" {
 
   freeform_tags = {
     "Department" = "Accounting"
+    yor_trace    = "43d4448c-7fad-4d56-8358-7c97e215ab77"
   }
 
   is_local_backup_enabled     = "false"
@@ -169,6 +172,7 @@ resource "oci_database_backup_destination" "test_backup_destination_nfs" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "842a4013-d1e2-4358-b947-decb9a2330be"
   }
   mount_type_details {
     local_mount_point_path = "localMountPointPath"
@@ -209,5 +213,6 @@ resource "oci_database_autonomous_vm_cluster" "test_autonomous_vm_cluster" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "652446eb-6f7a-4401-bf64-91ca7d87c3fe"
   }
 }

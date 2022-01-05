@@ -21,7 +21,7 @@ variable "fleet_freeform_tags" {
 }
 
 variable "fleet_defined_tags" {
-  default  = { "example-tag-namespace-all.example-tag" = "value" }
+  default = { "example-tag-namespace-all.example-tag" = "value" }
 }
 
 variable "fleet_id" {
@@ -46,8 +46,10 @@ resource "oci_jms_fleet" "example_fleet" {
   display_name   = var.fleet_display_name
 
   #Optional
-  description   = var.fleet_description
-  freeform_tags = var.fleet_freeform_tags
+  description = var.fleet_description
+  freeform_tags = merge(var.fleet_freeform_tags, {
+    yor_trace = "53a74db1-308b-489c-a2a6-553c59486f8f"
+  })
 
   # Create the Tag namespace in OCI before enabling
   # See user guide: https://docs.oracle.com/en-us/iaas/Content/Tagging/Tasks/managingtagsandtagnamespaces.htm

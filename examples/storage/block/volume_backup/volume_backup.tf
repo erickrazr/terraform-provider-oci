@@ -76,9 +76,11 @@ resource "oci_core_volume_backup" "test_volume_backup" {
   volume_id = oci_core_volume.test_volume.id
 
   #Optional
-  display_name  = var.volume_backup_display_name
-  freeform_tags = var.volume_backup_freeform_tags
-  type          = var.volume_backup_type
+  display_name = var.volume_backup_display_name
+  freeform_tags = merge(var.volume_backup_freeform_tags, {
+    yor_trace = "fa38eb7b-fb30-49e7-8f63-91c113332f59"
+  })
+  type = var.volume_backup_type
 }
 
 resource "oci_core_volume_backup" "test_volume_backup_cross_region_sourced" {

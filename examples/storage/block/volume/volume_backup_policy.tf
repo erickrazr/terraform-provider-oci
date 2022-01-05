@@ -86,6 +86,7 @@ resource "oci_core_volume_backup_policy" "test_volume_backup_policy_custom" {
 
   freeform_tags = {
     "Department" = "Finance"
+    yor_trace    = "81f713f8-154d-4bd9-ba49-abc9d93d0955"
   }
 
   schedules {
